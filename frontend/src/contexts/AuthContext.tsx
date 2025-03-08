@@ -25,10 +25,9 @@ console.log('Using API URL:', API_BASE_URL); // Debug log
 const api = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json'
+    'Content-Type': 'application/json'
   },
-  withCredentials: false // We're using token auth
+  withCredentials: false
 });
 
 // Add interceptor to add auth token to requests
