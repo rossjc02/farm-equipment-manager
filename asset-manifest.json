@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/farm-equipment-manager/static/css/main.e6c13ad2.css",
+    "main.js": "/farm-equipment-manager/static/js/main.63e4d4fe.js",
+    "static/js/453.8ab44547.chunk.js": "/farm-equipment-manager/static/js/453.8ab44547.chunk.js",
+    "index.html": "/farm-equipment-manager/index.html",
+    "main.e6c13ad2.css.map": "/farm-equipment-manager/static/css/main.e6c13ad2.css.map",
+    "main.63e4d4fe.js.map": "/farm-equipment-manager/static/js/main.63e4d4fe.js.map",
+    "453.8ab44547.chunk.js.map": "/farm-equipment-manager/static/js/453.8ab44547.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.63e4d4fe.js"
+  ]
+}
