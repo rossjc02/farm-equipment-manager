@@ -1,0 +1,13 @@
+{
+  "name": "farm-equipment-manager",
+  "version": "1.0.0",
+  "description": "Rosswurm Family Farms Equipment Manager",
+  "private": true,
+  "scripts": {
+    "start": "cd backend && npm start",
+    "install": "cd backend && npm install"
+  },
+  "engines": {
+    "node": "18.17.0"
+  }
+} 
