@@ -17,9 +17,9 @@ interface AuthContextType {
   register: (userData: { username: string; password: string }) => Promise<void>;
 }
 
-const API_BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://your-backend-url.com/api'  // Replace with your actual backend URL
-  : 'http://localhost:5000/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+
+console.log('Using API URL:', API_BASE_URL); // Debug log
 
 // Create an axios instance with default config
 const api = axios.create({
@@ -27,12 +27,14 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json'
-  }
+  },
+  withCredentials: false // Changed to false since we're using token auth
 });
 
 // Add interceptor to add auth token to requests
 api.interceptors.request.use(
   (config) => {
+    console.log('Making request to:', config.url); // Debug log
     const token = localStorage.getItem('token');
     if (token && config.headers) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -40,6 +42,7 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
+    console.error('Request error:', error); // Debug log
     return Promise.reject(error);
   }
 );
@@ -47,7 +50,8 @@ api.interceptors.request.use(
 // Add response interceptor for logging
 api.interceptors.response.use(
   (response) => {
-    console.log('Response:', {
+    console.log('Response received:', {
+      url: response.config.url,
       status: response.status,
       data: response.data,
       headers: response.headers
@@ -55,10 +59,11 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.error('Response error:', {
+    console.error('Response error details:', {
       message: error.message,
-      response: error.response?.data,
-      status: error.response?.status
+      code: error.code,
+      config: error.config,
+      response: error.response,
     });
     return Promise.reject(error);
   }
@@ -115,15 +120,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (username: string, password: string) => {
     try {
+      console.log('Attempting login with:', { username }); // Debug log
       const response = await api.post('/auth/login', {
         email: username,
         password,
       });
+      console.log('Login response:', response.data); // Debug log
       const { token, user } = response.data;
       localStorage.setItem('token', token);
       setIsAuthenticated(true);
       setUser(user);
     } catch (error) {
+      console.error('Login error full details:', error); // Debug log
       handleAuthError(error);
     }
   };
