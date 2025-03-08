@@ -28,7 +28,7 @@ const api = axios.create({
     'Content-Type': 'application/json',
     'Accept': 'application/json'
   },
-  withCredentials: false // Changed to false since we're using token auth
+  withCredentials: false // We're using token auth
 });
 
 // Add interceptor to add auth token to requests
